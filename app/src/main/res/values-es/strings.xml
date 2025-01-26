@@ -3,6 +3,7 @@
     <string name="mis_pok_mon">Mis Pokémon</string>
     <string name="pok_dex">Pokédex</string>
     <string name="ajustes">Ajustes</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Fragmento Vacio</string>
     <string name="pokemon_image">Imagen Pokemon</string>
     <string name="close">Cerrar</string>

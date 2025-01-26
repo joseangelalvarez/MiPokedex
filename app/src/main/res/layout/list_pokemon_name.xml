@@ -8,14 +8,24 @@
     android:background="@android:color/white">
     <ImageView
         android:id="@+id/imageViewPokemon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="centerCrop" />
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:padding="4dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/pokemon_image" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/borde"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
         android:text="Pokemon name"/>
+    </LinearLayout>
 </LinearLayout>

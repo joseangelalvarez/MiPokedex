@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MiPokedex</string>
+    <string name="mis_pok_mon">My Pokémon</string>
+    <string name="pok_dex">Pokédex</string>
+    <string name="ajustes">Settings</string>
+    <string name="hello_blank_fragment">Blank Fragment</string>
+    <string name="pokemon_image">Pokemon Image</string>
+    <string name="close">Close</string>
+    <string name="type">Type</string>
+    <string name="weight">Weight</string>
+    <string name="pokemon_name">Pokemon Name</string>
+    <string name="permitir_eliminaci_n">Active Delete</string>
+    <string name="acerca_de">About...</string>
+    <string name="cerrar_sesi_n">Close session</string>
+    <string name="height">Height</string>
+    <string name="desarrollador">Developer: Jose Angel Alvarez\nVersión: 1.0.0</string>
+    <string name="seguro">¿Are you sure you want to close session?</string>
+    <string name="eliminar">Delete</string>
+</resources>

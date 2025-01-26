@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MiPokedex" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/pokemon_gray_background</item>
+        <item name="colorSecondary">@color/pokemon_yellow_dark</item>
+        <item name="backgroundColor">@color/pokemon_gray_background</item>"
     </style>
 </resources>

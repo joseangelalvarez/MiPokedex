@@ -16,8 +16,8 @@ import java.util.List;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder> {
 
-    private List<PokemonData> pokemonDataList;
-    private OnPokemonClickListener listener;
+    private final List<PokemonData> pokemonDataList;
+    private final OnPokemonClickListener listener;
 
     public interface OnPokemonClickListener {
         void onPokemonClick(PokemonData pokemonData);
@@ -32,7 +32,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_pokemon_name, parent, false);
+                .inflate(R.layout.list_pokemon_name, parent, false);
         return new ViewHolder(view);
     }
 
@@ -40,16 +40,16 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PokemonData pokemon = pokemonDataList.get(position);;
+        PokemonData pokemon = pokemonDataList.get(position);
         holder.bind(pokemon);
-        if (pokemon.isCaptured()) {
+        if (pokemon.getCaptured()) {
             holder.itemView.setBackgroundColor(Color.RED); // Fondo rojo si está capturado
         } else {
             holder.itemView.setBackgroundColor(Color.GREEN); // Fondo verde si no está capturado
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null && !pokemon.isCaptured()) { // Solo permitir clics en no capturados
+            if (listener != null && !pokemon.getCaptured()) { // Solo permitir clics en no capturados
                 listener.onPokemonClick(pokemon);
             }
         });

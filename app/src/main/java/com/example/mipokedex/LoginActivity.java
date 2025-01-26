@@ -1,6 +1,9 @@
 package com.example.mipokedex;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.widget.Toast;
@@ -19,16 +22,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-
     }
-
     private void startSignIn() {
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
+        List<AuthUI.IdpConfig> providers = List.of(
                 new AuthUI.IdpConfig.EmailBuilder().build());
                //new AuthUI.IdpConfig.GoogleBuilder().build());
         Intent signInIntent = AuthUI.getInstance()

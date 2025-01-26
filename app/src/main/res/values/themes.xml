@@ -1,15 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MiPokedex" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorPrimary">@color/pokemon_red_dark</item>
+        <item name="colorPrimaryVariant">@color/pokemon_red</item>
 
         <!-- Color para componentes de énfasis (FAB, switches, etc.) -->
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorSecondary">@color/pokemon_yellow</item>
+        <item name="colorSecondaryVariant">@color/pokemon_yellow_dark</item>
 
         <!-- Colores de fondo -->
-        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/pokemon_gray_background</item>
         <item name="android:colorForeground">@color/colorOnBackground</item>
     </style>
 

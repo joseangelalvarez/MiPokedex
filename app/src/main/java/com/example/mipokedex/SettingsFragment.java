@@ -48,7 +48,7 @@ public class SettingsFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedLang = position == 0 ? "es" : "en";
                 prefs.edit().putString("language", selectedLang).apply();
-                // Podríamos forzar recarga de la Activity para cambiar el idioma
+                //requireActivity().recreate();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
@@ -62,16 +62,16 @@ public class SettingsFragment extends Fragment {
 
     private void showAboutDialog() {
         new AlertDialog.Builder(requireContext())
-                .setTitle("Acerca de")
-                .setMessage("Desarrollador: Jose Angel Alvarez\nVersión: 1.0.0")
+                .setTitle(R.string.acerca_de)
+                .setMessage(R.string.desarrollador)
                 .setPositiveButton("OK", null)
                 .show();
     }
 
     private void logout() {
         new AlertDialog.Builder(requireContext())
-                .setTitle("Cerrar sesión")
-                .setMessage("¿Estás seguro de que quieres cerrar sesión?")
+                .setTitle(R.string.cerrar_sesi_n)
+                .setMessage(R.string.seguro)
                 .setPositiveButton("Sí", (dialog, which) -> {
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(requireContext(), LoginActivity.class));

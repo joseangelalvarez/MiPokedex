@@ -23,19 +23,24 @@ import java.util.List;
 
 public class CapturedAdapter extends RecyclerView.Adapter<CapturedAdapter.ViewHolder> {
 
-    private List<PokemonData> list;
+    private final List<PokemonData> list;
+    private final OnPokemonClickListener clickListener;
 
-    public CapturedAdapter(List<PokemonData> list) {
+    public CapturedAdapter(List<PokemonData> list, OnPokemonClickListener clickListener) {
         this.list = list;
+        this.clickListener = clickListener;
     }
+    public interface OnPokemonClickListener {
+        void onPokemonClick(PokemonData pokemon);
+    }
+
 
     // 1. Inflamos el layout que representará cada ítem de la lista:
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Usar tu layout para cada Pokémon, por ejemplo: R.layout.item_captured_pokemon
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_captured_pokemon, parent, false);
+                .inflate(R.layout.list_captured_pokemon, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,8 +49,14 @@ public class CapturedAdapter extends RecyclerView.Adapter<CapturedAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PokemonData pokemon = list.get(position);
         holder.bind(pokemon);
+        // Manejar clic en el item para abrir detalles
+        holder.itemView.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onPokemonClick(pokemon);
+            }
+        });
 
-        // Obtenemos SharedPreferences para ver si está habilitada la eliminación
+        // Manejo de eliminación condicional
         SharedPreferences prefs = holder.itemView.getContext()
                 .getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
         boolean deleteEnabled = prefs.getBoolean("deleteEnabled", false);
@@ -64,7 +75,7 @@ public class CapturedAdapter extends RecyclerView.Adapter<CapturedAdapter.ViewHo
                         .document(pokemon.getDocumentId())
                         .delete()
                         .addOnSuccessListener(aVoid -> {
-                            // Eliminar también de la lista local
+                            // Eliminar de la lista local
                             list.remove(position);
                             notifyItemRemoved(position);
                         });

@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class PokedexFragment extends Fragment {
     private RecyclerView recyclerView;
     private PokemonAdapter adapter;
-    private List<PokemonData> pokemonList = new ArrayList<>();
+    private final List<PokemonData> pokemonList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -72,13 +72,45 @@ public class PokedexFragment extends Fragment {
                                     String id = urlParts[urlParts.length - 1];
                                     String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
 
-                                    // Verificar si el Pokémon está capturado
-                                    boolean isCaptured = capturedNames.contains(result.getName());
-                                    pokemonList.add(new PokemonData(result.getName(), imageUrl, isCaptured));
-                                }
+                                    // Llamar a los detalles del Pokémon
+                                    apiService.getPokemonDetails(result.getUrl()).enqueue(new Callback<PokemonDetail>() {
+                                        @Override
+                                        public void onResponse(Call<PokemonDetail> call, Response<PokemonDetail> detailResponse) {
+                                            if (detailResponse.isSuccessful() && detailResponse.body() != null) {
+                                                PokemonDetail detail = detailResponse.body();
 
-                                // Notificar al adaptador que los datos han cambiado
-                                adapter.notifyDataSetChanged();
+                                                // Obtener altura, peso y tipos
+                                                double height = detail.getHeight();
+                                                double weight = detail.getWeight();
+                                                List<String> types = new ArrayList<>();
+                                                for (PokemonDetail.TypeSlot typeSlot : detail.getTypes()) {
+                                                    types.add(typeSlot.getType().getName());
+                                                }
+
+                                                // Verificar si el Pokémon está capturado
+                                                boolean isCaptured = capturedNames.contains(result.getName());
+
+                                                // Agregar a la lista
+                                                pokemonList.add(new PokemonData(result.getName(),
+                                                        Integer.parseInt(id),
+                                                        imageUrl,
+                                                        types,
+                                                        weight,
+                                                        height,
+                                                        isCaptured
+                                                ));
+
+                                                // Notificar al adaptador
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<PokemonDetail> call, Throwable t) {
+                                            Toast.makeText(getContext(), "Error fetching details for " + result.getName(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
                             })
                             .addOnFailureListener(e -> {
                                 Toast.makeText(getContext(), "Error loading captured Pokémon: " + e.getMessage(), Toast.LENGTH_SHORT).show();

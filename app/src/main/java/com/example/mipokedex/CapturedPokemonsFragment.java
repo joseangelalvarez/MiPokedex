@@ -1,5 +1,6 @@
 package com.example.mipokedex;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,19 +27,21 @@ public class CapturedPokemonsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private CapturedAdapter adapter;
-    private List<PokemonData> pokemonList = new ArrayList<>();
+    private final List<PokemonData> pokemonList = new ArrayList<>();
     private ListenerRegistration listenerRegistration;
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_captured_pokemons, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewCaptured);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new CapturedAdapter(pokemonList);
+
+        // Configura el adaptador con el listener para abrir detalles
+        adapter = new CapturedAdapter(pokemonList, this::openPokemonDetails);
         recyclerView.setAdapter(adapter);
 
-        // Iniciamos el SnapshotListener
+        // Inicia el SnapshotListener
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -53,9 +56,9 @@ public class CapturedPokemonsFragment extends Fragment {
             if (snapshot != null) {
                 pokemonList.clear();
                 for (DocumentSnapshot doc : snapshot.getDocuments()) {
-                    PokemonData p = doc.toObject(PokemonData.class);
-                    p.setDocumentId(doc.getId());
-                    pokemonList.add(p);
+                    PokemonData pokemon = doc.toObject(PokemonData.class);
+                    pokemon.setDocumentId(doc.getId());
+                    pokemonList.add(pokemon);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -71,5 +74,10 @@ public class CapturedPokemonsFragment extends Fragment {
             listenerRegistration.remove();
             listenerRegistration = null;
         }
+    }
+    private void openPokemonDetails(PokemonData pokemon) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra("pokemon", pokemon); // Asegúrate de que PokemonData sea Serializable o Parcelable
+        startActivity(intent);
     }
 }

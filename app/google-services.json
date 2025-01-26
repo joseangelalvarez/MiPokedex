@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1018263123544",
+    "project_id": "mipokedex-5def6",
+    "storage_bucket": "mipokedex-5def6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018263123544:android:392010684dc6ef106e7c2d",
+        "android_client_info": {
+          "package_name": "com.example.mipokedex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM3sofObXbH_wfw-rxs5u-uRpUF1vC9gQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
