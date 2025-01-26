@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_captured"
+        android:title="@string/mis_pok_mon"
+        android:icon="@drawable/ic_pokeball"/>
+    <item
+        android:id="@+id/navigation_pokedex"
+        android:title="@string/pok_dex"
+        android:icon="@drawable/ic_pokedex"/>
+    <item
+        android:id="@+id/navigation_settings"
+        android:title="@string/ajustes"
+        android:icon="@drawable/ic_settings"/>
+</menu>

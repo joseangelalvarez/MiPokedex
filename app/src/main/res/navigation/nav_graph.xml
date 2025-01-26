@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_captured">
+
+    <fragment
+        android:id="@+id/navigation_captured"
+        android:name="com.example.mipokedex.CapturedPokemonsFragment"
+        android:label="Mis Pokémon" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_pokedex"
+        android:name="com.example.mipokedex.PokedexFragment"
+        android:label="Pokédex" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.mipokedex.SettingsFragment"
+        android:label="Ajustes" >
+    </fragment>
+
+</navigation>

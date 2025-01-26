@@ -1,5 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Colores principales (inspirados en Pikachu y el rojo Poké Ball) -->
+    <color name="pokemon_yellow">#FFCB05</color>      <!-- Amarillo principal Pikachu -->
+    <color name="pokemon_red">#E3350D</color>         <!-- Rojo intenso (Poké Ball / Logo) -->
+
+    <!-- Variaciones más oscuras o claras para usarlas como "variant" -->
+    <color name="pokemon_yellow_dark">#F2AE00</color> <!-- Versión más oscura del amarillo -->
+    <color name="pokemon_red_dark">#B3210A</color>    <!-- Versión más oscura del rojo -->
+
+    <!-- Otros colores complementarios -->
+    <color name="pokemon_black">#000000</color>       <!-- Negro Poké Ball (franja central) -->
+    <color name="pokemon_white">#FFFFFF</color>       <!-- Blanco Poké Ball -->
+    <color name="pokemon_gray_background">#F5F5F5</color> <!-- Gris claro para fondos -->
+
+    <!-- Ejemplo de uso como color primario/secundario en Material Design -->
+    <color name="colorPrimary">@color/pokemon_red</color>
+    <color name="colorPrimaryVariant">@color/pokemon_red_dark</color>
+    <color name="colorSecondary">@color/pokemon_yellow</color>
+    <color name="colorSecondaryVariant">@color/pokemon_yellow_dark</color>
+
+    <!-- Textos sobre fondos de colorPrimary y colorSecondary -->
+    <color name="colorOnPrimary">@color/pokemon_white</color>
+    <color name="colorOnSecondary">@color/pokemon_black</color>
+
+    <!-- Textos principales y fondos generales -->
+    <color name="colorBackground">@color/pokemon_white</color>
+    <color name="colorSurface">@color/pokemon_gray_background</color>
+    <color name="colorOnBackground">@color/pokemon_black</color>
+    <color name="colorOnSurface">@color/pokemon_black</color>
 </resources>

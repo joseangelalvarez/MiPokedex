@@ -1,0 +1,172 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- Agrupamos todos los paths y los trasladamos para centrar -->
+    <group
+        android:translateX="-6.0"
+        android:translateY="24.0">
+
+        <!-- Cuerpo/base de Pikachu (amarillo) -->
+        <path
+            android:fillColor="#FFCB05"
+            android:pathData="
+                M48,10
+                c-15,0 -25,10 -25,25
+                v16
+                c0,7 3,14 8,19
+                h34
+                c5,-5 8,-12 8,-19
+                v-16
+                c0,-15 -10,-25 -25,-25
+                z
+            " />
+
+        <!-- Oreja izquierda (amarillo) -->
+        <path
+            android:fillColor="#FFCB05"
+            android:pathData="
+                M30,6
+                l-4,-14
+                c1,-1 3,-1 4,0
+                l8,12
+                z
+            " />
+
+        <!-- Punta de oreja izquierda (negro) -->
+        <path
+            android:fillColor="#000000"
+            android:pathData="
+                M26,-8
+                l4,-14
+                l4,6
+                l-4,8
+                z
+            " />
+
+        <!-- Oreja derecha (amarillo) -->
+        <path
+            android:fillColor="#FFCB05"
+            android:pathData="
+                M66,6
+                l4,-14
+                c-1,-1 -3,-1 -4,0
+                l-8,12
+                z
+            " />
+
+        <!-- Punta de oreja derecha (negro) -->
+        <path
+            android:fillColor="#000000"
+            android:pathData="
+                M70,-8
+                l-4,-14
+                l-4,6
+                l4,8
+                z
+            " />
+
+        <!-- Ojos (negro) -->
+        <path
+            android:fillColor="#000000"
+            android:pathData="
+                M38,32
+                a3,3 0 1,1 0,6
+                a3,3 0 1,1 0,-6
+            " />
+
+        <path
+            android:fillColor="#000000"
+            android:pathData="
+                M58,32
+                a3,3 0 1,1 0,6
+                a3,3 0 1,1 0,-6
+            " />
+
+        <!-- Brillo blanco en ojos -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="
+                M37.2,33
+                a1.2,1.2 0 1,1 0,2.4
+                a1.2,1.2 0 1,1 0,-2.4
+            " />
+
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="
+                M57.2,33
+                a1.2,1.2 0 1,1 0,2.4
+                a1.2,1.2 0 1,1 0,-2.4
+            " />
+
+        <!-- Nariz (negro) -->
+        <path
+            android:fillColor="#000000"
+            android:pathData="
+                M47,38
+                l2,0
+                l0,2
+                l-2,0
+                z
+            " />
+
+        <!-- Boca (pequeña sonrisa) -->
+        <path
+            android:fillColor="#000000"
+            android:pathData="
+                M40,42
+                c2,3 10,3 12,0
+                l-1,1
+                c-1,1 -9,1 -10,0
+                z
+            " />
+
+        <!-- Mejillas rojas -->
+        <path
+            android:fillColor="#F44336"
+            android:pathData="
+                M34,44
+                a4,4 0 1,1 0,8
+                a4,4 0 1,1 0,-8
+            " />
+
+        <path
+            android:fillColor="#F44336"
+            android:pathData="
+                M58,44
+                a4,4 0 1,1 0,8
+                a4,4 0 1,1 0,-8
+            " />
+
+        <!-- Cola (amarillo) -->
+        <path
+            android:fillColor="#FFCB05"
+            android:pathData="
+                M70,50
+                l12,0
+                l-4,10
+                l8,0
+                l-12,20
+                l4,-12
+                h-8
+                z
+            " />
+
+        <!-- Extremo cola (marrón oscuro, opcional) -->
+        <path
+            android:fillColor="#5D4037"
+            android:pathData="
+                M78,68
+                l-4,12
+                l-4,0
+                l4,-12
+                z
+            " />
+
+    </group>
+
+</vector>
+
