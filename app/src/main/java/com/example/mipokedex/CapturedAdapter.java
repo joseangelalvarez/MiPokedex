@@ -26,6 +26,7 @@ public class CapturedAdapter extends RecyclerView.Adapter<CapturedAdapter.ViewHo
     private final List<PokemonData> list;
     private final OnPokemonClickListener clickListener;
 
+
     public CapturedAdapter(List<PokemonData> list, OnPokemonClickListener clickListener) {
         this.list = list;
         this.clickListener = clickListener;

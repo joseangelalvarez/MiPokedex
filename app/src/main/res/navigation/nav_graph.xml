@@ -14,6 +14,9 @@
         android:id="@+id/navigation_pokedex"
         android:name="com.example.mipokedex.PokedexFragment"
         android:label="Pokédex" >
+        <action
+            android:id="@+id/action_pokedexFragment_to_capturedPokemonsFragment"
+            app:destination="@id/navigation_captured" />
     </fragment>
 
     <fragment

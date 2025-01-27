@@ -4,20 +4,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mipokedex.PokemonAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,7 +69,7 @@ public class PokedexFragment extends Fragment {
                             .get()
                             .addOnSuccessListener(queryDocumentSnapshots -> {
                                 List<String> capturedNames = new ArrayList<>();
-                                for (var document : queryDocumentSnapshots.getDocuments()) {
+                                for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
                                     capturedNames.add(document.getString("name")); // Nombre de Pokémon capturados
                                 }
 
@@ -125,28 +132,32 @@ public class PokedexFragment extends Fragment {
         });
     }
 
-    private void capturePokemon(PokemonData pokemon) {
+   private void capturePokemon(@NonNull PokemonData pokemon) {
         // Marcar el Pokémon como capturado
-        pokemon.setCaptured(true);
+       pokemon.setCaptured(true);
+        // 1) Buscar el BottomNavigationView en la Activity
+       BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottomNavigationView);
+        // 2) Seleccionar la pestaña de “Captured”
+       bottomNav.setSelectedItemId(R.id.navigation_captured);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
+       FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        Log.d("DEBUG", "El userId es: "+userId);
         db.collection("captured_pokemons")
                 .document(userId)
                 .collection("myPokemons")
                 .add(pokemon)
                 .addOnSuccessListener(doc -> {
-                    Toast.makeText(getContext(), "Captured: " + pokemon.getName(), Toast.LENGTH_SHORT).show();
-
-                    // Actualizar el elemento en la lista y notificar al adaptador
-                    int position = pokemonList.indexOf(pokemon);
-                    if (position >= 0) {
-                        adapter.notifyItemChanged(position);
-                    }
-                })
+                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), "Error capturing: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+       Toast.makeText(getContext(), "Captured: " + pokemon.getName(), Toast.LENGTH_SHORT).show();
+       // Actualizar el elemento en la lista y notificar al adaptador
+       int position = pokemonList.indexOf(pokemon);
+       if (position >= 0) adapter.notifyItemChanged(position);
+
     }
 }

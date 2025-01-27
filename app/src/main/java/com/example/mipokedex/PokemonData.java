@@ -15,6 +15,8 @@ public class PokemonData implements Serializable {
     private Boolean isCaptured;
 
     // Constructor vacío necesario para Firebase
+
+
     public PokemonData() {
         this.types = new ArrayList<>(); // Inicializa como lista vacía
     }
