@@ -1,11 +1,11 @@
 package com.example.mipokedex;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.mipokedex.PokemonAdapter;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PokedexFragment extends Fragment {
-    private RecyclerView recyclerView;
     private PokemonAdapter adapter;
     private final List<PokemonData> pokemonList = new ArrayList<>();
 
@@ -40,7 +39,7 @@ public class PokedexFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pokedex, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerViewPokedex);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewPokedex);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new PokemonAdapter(pokemonList, this::capturePokemon);
@@ -54,13 +53,13 @@ public class PokedexFragment extends Fragment {
         PokeApiService apiService = RetrofitClient.getInstance().create(PokeApiService.class);
 
         // Obtener lista de Pokémon desde la API
-        apiService.getPokemonList(50).enqueue(new Callback<PokemonResponse>() {
+        apiService.getPokemonList(50).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
+            public void onResponse(@NonNull Call<PokemonResponse> call, @NonNull Response<PokemonResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<PokemonResult> results = response.body().getResults();
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    String userId = Objects.requireNonNull(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())).getUid();
 
                     // Cargar Pokémon capturados desde Firebase
                     db.collection("captured_pokemons")
@@ -80,9 +79,10 @@ public class PokedexFragment extends Fragment {
                                     String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
 
                                     // Llamar a los detalles del Pokémon
-                                    apiService.getPokemonDetails(result.getUrl()).enqueue(new Callback<PokemonDetail>() {
+                                    apiService.getPokemonDetails(result.getUrl()).enqueue(new Callback<>() {
+                                        @SuppressLint("NotifyDataSetChanged")
                                         @Override
-                                        public void onResponse(Call<PokemonDetail> call, Response<PokemonDetail> detailResponse) {
+                                        public void onResponse(@NonNull Call<PokemonDetail> call, @NonNull Response<PokemonDetail> detailResponse) {
                                             if (detailResponse.isSuccessful() && detailResponse.body() != null) {
                                                 PokemonDetail detail = detailResponse.body();
 
@@ -113,20 +113,18 @@ public class PokedexFragment extends Fragment {
                                         }
 
                                         @Override
-                                        public void onFailure(Call<PokemonDetail> call, Throwable t) {
+                                        public void onFailure(@NonNull Call<PokemonDetail> call, @NonNull Throwable t) {
                                             Toast.makeText(getContext(), "Error fetching details for " + result.getName(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
                             })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(getContext(), "Error loading captured Pokémon: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
+                            .addOnFailureListener(e -> Toast.makeText(getContext(), "Error loading captured Pokémon: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                 }
             }
 
             @Override
-            public void onFailure(Call<PokemonResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<PokemonResponse> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "Error fetching Pokémon: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -151,9 +149,7 @@ public class PokedexFragment extends Fragment {
                 .add(pokemon)
                 .addOnSuccessListener(doc -> {
                  })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Error capturing: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error capturing: " + e.getMessage(), Toast.LENGTH_SHORT).show());
        Toast.makeText(getContext(), "Captured: " + pokemon.getName(), Toast.LENGTH_SHORT).show();
        // Actualizar el elemento en la lista y notificar al adaptador
        int position = pokemonList.indexOf(pokemon);
